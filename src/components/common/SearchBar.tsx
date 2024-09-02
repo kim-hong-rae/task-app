@@ -1,12 +1,13 @@
-import { useState } from "react";
 import styled from "styled-components";
 
-const SearchBar = () => {
-  const [value, setValue] = useState("");
+interface SearchBarProps {
+  value: string;
+  onChange: (value: string) => void;
+}
 
+const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
   const handleSearchBar = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    console.log(value);
+    onChange(e.target.value);
   };
 
   return (
@@ -24,7 +25,7 @@ const SearchBar = () => {
 const SearchBarStyle = styled.div`
   margin-top: 12px;
   input {
-    padding: 12px 60px;
+    padding: 12px 80px;
   }
 `;
 

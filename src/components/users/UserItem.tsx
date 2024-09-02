@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { User } from "../../type/type";
 import styled from "styled-components";
 
@@ -7,9 +7,15 @@ interface UserItemProps {
 }
 
 const UserItem: React.FC<UserItemProps> = ({ user }) => {
+  const [modal, setModal] = useState(false);
+
+  const handleModal = () => {
+    setModal(!modal);
+  };
+
   return (
     <UserItemStyle>
-      <div className="container">
+      <div className="container" onClick={handleModal}>
         <div className="image-wrapper">
           <div className="image-container">
             <img
@@ -23,25 +29,68 @@ const UserItem: React.FC<UserItemProps> = ({ user }) => {
           <h2>
             {user.name.title} {user.name.first} {user.name.last}
           </h2>
-          <InfoItem>
-            <span className="label">Gender:</span> {user.gender}
-          </InfoItem>
+
           <InfoItem>
             <span className="label">Email:</span> {user.email}
           </InfoItem>
-          <InfoItem>
-            <span className="label">Location:</span> {user.location.city},{" "}
-            {user.location.state}, {user.location.country}
-          </InfoItem>
-          <InfoItem>
-            <span className="label">Username:</span> {user.login.username}
-          </InfoItem>
+
           <InfoItem>
             <span className="label">Phone:</span> {user.phone}
           </InfoItem>
         </div>
       </div>
+      {modal && <Modal user={user} onClose={handleModal} />}
     </UserItemStyle>
+  );
+};
+
+const Modal: React.FC<{ user: User; onClose: () => void }> = ({
+  user,
+  onClose,
+}) => {
+  return (
+    <ModalOverlay>
+      <ModalContent>
+        <ModalHeader>
+          <h2>
+            {user.name.title} {user.name.first} {user.name.last}
+          </h2>
+          <CloseButton onClick={onClose}></CloseButton>
+        </ModalHeader>
+        <ModalBody>
+          <img
+            src={user.picture.large}
+            alt={`${user.name.first} ${user.name.last}`}
+          />
+          <InfoItem>
+            <span className="label">Email:</span> {user.email}
+          </InfoItem>
+          <InfoItem>
+            <span className="label">Phone:</span> {user.phone}
+          </InfoItem>
+          <InfoItem>
+            <span className="label">Cell:</span> {user.cell}
+          </InfoItem>
+          <InfoItem>
+            <span className="label">Date of Birth:</span>{" "}
+            {new Date(user.dob.date).toLocaleDateString()}
+          </InfoItem>
+          <InfoItem>
+            <span className="label">Age:</span> {user.dob.age}
+          </InfoItem>
+          <InfoItem>
+            <span className="label">Nationality:</span> {user.nat}
+          </InfoItem>
+          <InfoItem>
+            <span className="label">Location:</span>
+            <br />
+            {user.location.street.number} {user.location.street.name},<br />
+            {user.location.city}, {user.location.state},<br />
+            {user.location.country}, {user.location.postcode}
+          </InfoItem>
+        </ModalBody>
+      </ModalContent>
+    </ModalOverlay>
   );
 };
 
@@ -62,6 +111,7 @@ const UserItemStyle = styled.div`
   .container {
     display: flex;
     flex-direction: column;
+    cursor: pointer;
   }
 
   .image-wrapper {
@@ -108,6 +158,64 @@ const InfoItem = styled.p`
     font-weight: bold;
     color: #444;
     margin-right: 5px;
+  }
+`;
+
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+const ModalContent = styled.div`
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const ModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+  }
+`;
+
+const CloseButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #333;
+  }
+`;
+
+const ModalBody = styled.div`
+  img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
   }
 `;
 
