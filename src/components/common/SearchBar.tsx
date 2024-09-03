@@ -5,7 +5,7 @@ interface SearchBarProps {
   onChange: (value: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
+const SearchBar = ({ value, onChange }: SearchBarProps) => {
   const handleSearchBar = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
@@ -25,7 +25,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
 const SearchBarStyle = styled.div`
   margin-top: 12px;
   input {
-    padding: 12px 80px;
+    padding: 12px 140px;
   }
 `;
 
