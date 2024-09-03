@@ -1,7 +1,9 @@
+// src/components/users/UserList.tsx
 import { useEffect, useState } from "react";
 import { fetchRandomUser } from "../../api/api";
 import { SortType, User } from "../../type/type";
 import UserItem from "./UserItem";
+import Pagination from "../common/Pagination";
 import styled from "styled-components";
 
 interface UserListProps {
@@ -12,15 +14,17 @@ interface UserListProps {
 const UserList = ({ searchValue, sortOrder }: UserListProps) => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 6;
 
   useEffect(() => {
     const getUserData = async () => {
-      setLoading(true); // API 요청 시작 시 로딩 상태 true로 설정
+      setLoading(true);
       try {
         const response = await fetchRandomUser();
         const allUsers = response.results;
         setUsers(allUsers);
-        setLoading(false); // API 요청이 완료되면 로딩 상태 false로 설정
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -29,14 +33,12 @@ const UserList = ({ searchValue, sortOrder }: UserListProps) => {
     getUserData();
   }, []);
 
-  // 검색 값에 따른 사용자 필터링
   const filteredUsers = users.filter((user) =>
     `${user.name.first} ${user.name.last}`
       .toLowerCase()
       .includes(searchValue.toLowerCase())
   );
 
-  // 정렬된 사용자 목록
   const sortedUsers = [...filteredUsers].sort((a, b) => {
     const nameA = `${a.name.first} ${a.name.last}`.toLowerCase();
     const nameB = `${b.name.first} ${b.name.last}`.toLowerCase();
@@ -45,19 +47,36 @@ const UserList = ({ searchValue, sortOrder }: UserListProps) => {
       : nameB.localeCompare(nameA);
   });
 
+  const totalPages = Math.ceil(sortedUsers.length / usersPerPage);
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = sortedUsers.slice(indexOfFirstUser, indexOfLastUser);
+
   return (
     <UserListStyle>
       {loading ? (
         <div>
-          <p className="content-result">로딩 중입니다...</p>{" "}
-          {/* 로딩 중 메시지 표시 */}
+          <p className="content-result">로딩 중입니다...</p>
         </div>
-      ) : sortedUsers.length === 0 ? (
+      ) : currentUsers.length === 0 ? (
         <div>
           <p className="content-result">항목에 맞는 검색 결과가 없습니다.</p>
         </div>
       ) : (
-        sortedUsers.map((user, index) => <UserItem key={index} user={user} />)
+        <>
+          <div className="user-items">
+            {currentUsers.map((user, index) => (
+              <UserItem key={index} user={user} />
+            ))}
+          </div>
+          <div className="pagination">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          </div>
+        </>
       )}
     </UserListStyle>
   );
@@ -65,13 +84,25 @@ const UserList = ({ searchValue, sortOrder }: UserListProps) => {
 
 const UserListStyle = styled.div`
   display: flex;
+  flex-direction: column;
   gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
+  align-items: center;
 
   .content-result {
     margin-top: 48px;
     font-size: 36px;
   }
+
+  .user-items {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pagination {
+    margin-top: -20px;
+    padding-bottom: 10px;
+  }
 `;
+
 export default UserList;
