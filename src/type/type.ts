@@ -54,3 +54,5 @@ export type User = {
   };
   nat: string;
 };
+
+export type SortType = "asc" | "desc";
