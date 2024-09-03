@@ -1,11 +1,21 @@
 import styled from "styled-components";
+import { SortType } from "../../type/type";
 
-const Filter = () => {
+interface FilterProps {
+  value: SortType;
+  onChange: (value: SortType) => void;
+}
+
+const Filter = ({ value, onChange }: FilterProps) => {
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    onChange(e.target.value as SortType);
+    console.log(e.target.value);
+  };
   return (
     <FilterStyle>
-      <select>
-        <option>오름차순</option>
-        <option>내림차순</option>
+      <select value={value} onChange={handleSortChange}>
+        <option>asc</option>
+        <option>desc</option>
       </select>
     </FilterStyle>
   );
