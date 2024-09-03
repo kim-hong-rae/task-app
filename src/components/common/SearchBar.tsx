@@ -18,14 +18,35 @@ const SearchBar = ({ value, onChange }: SearchBarProps) => {
         placeholder="검색어를 입력하세요."
         onChange={handleSearchBar}
       />
+      <button className="search-button">🔍</button>
     </SearchBarStyle>
   );
 };
 
 const SearchBarStyle = styled.div`
+  display: flex;
+  align-items: center;
   margin-top: 12px;
+  position: relative;
+
   input {
-    padding: 12px 140px;
+    flex: 1;
+    padding: 12px;
+    padding-right: 120px; // 아이콘 위치 조정
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+
+  .search-button {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+    outline: none;
   }
 `;
 
