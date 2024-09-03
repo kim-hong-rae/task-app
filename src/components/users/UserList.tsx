@@ -1,23 +1,22 @@
 import { useEffect, useState } from "react";
 import { fetchRandomUser } from "../../api/api";
-import { User } from "../../type/type";
+import { SortType, User } from "../../type/type";
 import UserItem from "./UserItem";
 import styled from "styled-components";
 
 interface UserListProps {
   searchValue: string;
+  sortOrder: SortType;
 }
 
-const UserList: React.FC<UserListProps> = ({ searchValue }) => {
+const UserList = ({ searchValue, sortOrder }: UserListProps) => {
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const promises = Array.from({ length: 12 }, () => fetchRandomUser());
-        const responses = await Promise.all(promises);
-
-        const allUsers = responses.flatMap((response) => response.results);
+        const response = await fetchRandomUser();
+        const allUsers = response.results;
         setUsers(allUsers);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -34,12 +33,22 @@ const UserList: React.FC<UserListProps> = ({ searchValue }) => {
       .includes(searchValue.toLowerCase())
   );
 
+  const sortedUsers = [...filteredUsers].sort((a, b) => {
+    const nameA = `${a.name.first} ${a.name.last}`.toLowerCase();
+    const nameB = `${b.name.first} ${b.name.last}`.toLowerCase();
+    if (sortOrder === "asc") {
+      return nameA.localeCompare(nameB);
+    } else {
+      return nameB.localeCompare(nameA);
+    }
+  });
+
   return (
     <UserListStyle>
-      {filteredUsers.length === 0 ? (
-        <p>No results found.</p>
+      {sortedUsers.length === 0 ? (
+        <p>검색 결과가 없습니다.</p>
       ) : (
-        filteredUsers.map((user, index) => <UserItem key={index} user={user} />)
+        sortedUsers.map((user, index) => <UserItem key={index} user={user} />)
       )}
     </UserListStyle>
   );
