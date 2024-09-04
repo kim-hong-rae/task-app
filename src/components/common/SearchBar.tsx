@@ -65,6 +65,8 @@ const SearchBarStyle = styled.div`
   }
 
   @media (max-width: 768px) {
+    width: 420px;
+    display: flex;
     input {
       font-size: 14px;
       padding-right: 100px;
@@ -72,6 +74,7 @@ const SearchBarStyle = styled.div`
   }
 
   @media (max-width: 480px) {
+    width: 360px;
     input {
       font-size: 12px;
       padding: 8px;

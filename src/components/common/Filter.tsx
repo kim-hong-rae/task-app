@@ -14,8 +14,8 @@ const Filter = ({ value, onChange }: FilterProps) => {
   return (
     <FilterStyle>
       <select value={value} onChange={handleSortChange}>
-        <option>asc</option>
-        <option>desc</option>
+        <option value={"asc"}>오름차순</option>
+        <option value={"desc"}>내림차순</option>
       </select>
     </FilterStyle>
   );
@@ -24,14 +24,12 @@ const Filter = ({ value, onChange }: FilterProps) => {
 const FilterStyle = styled.div`
   select {
     border: none;
-    padding: 8px;
     font-size: 16px;
   }
 
   @media (max-width: 480px) {
     select {
       font-size: 14px;
-      padding: 6px;
     }
   }
 `;

@@ -37,9 +37,9 @@ const HomeStyle = styled.div`
 
   @media (max-width: 768px) {
     .filter-container {
-      flex-direction: column;
-      gap: 10px;
-      align-items: stretch;
+      margin-left: 10px;
+      gap: 8px;
+      align-items: flex-end;
     }
   }
 `;
