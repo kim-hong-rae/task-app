@@ -36,10 +36,12 @@ const UserItem = ({ user }: UserItemProps) => {
               {user.name.first} {user.name.last}
             </h2>
             <InfoItem>
-              <span className="label">Email:</span> {user.email}
+              <span className="label">Email:</span>{" "}
+              <span className="value">{user.email}</span>
             </InfoItem>
             <InfoItem>
-              <span className="label">Phone:</span> {user.phone}
+              <span className="label">Phone:</span>{" "}
+              <span className="value">{user.phone}</span>
             </InfoItem>
           </div>
         </div>
@@ -56,9 +58,10 @@ const UserItemStyle = styled.div`
   margin: 10px;
   overflow: hidden;
   width: 300px;
-  height: 400px;
+  height: 360px;
   transition: transform 0.3s ease;
   cursor: pointer;
+
   &:hover {
     transform: translateY(-5px);
   }
@@ -109,6 +112,7 @@ const UserItemStyle = styled.div`
   @media (max-width: 768px) {
     width: calc(100% - 20px);
     height: auto;
+
     h2 {
       font-size: 1.2rem;
     }
@@ -119,6 +123,7 @@ const UserItemStyle = styled.div`
       width: 96px;
       height: 96px;
     }
+
     h2 {
       font-size: 1.1rem;
     }
@@ -129,11 +134,19 @@ const InfoItem = styled.p`
   margin: 10px 0;
   color: #666;
   font-size: 0.9rem;
+  display: flex;
+  align-items: flex-start;
 
   .label {
     font-weight: bold;
     color: #444;
     margin-right: 5px;
+    flex-shrink: 0;
+  }
+
+  .value {
+    word-break: break-all;
+    overflow-wrap: break-word;
   }
 
   @media (max-width: 480px) {
