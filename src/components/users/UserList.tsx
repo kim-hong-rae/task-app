@@ -54,30 +54,28 @@ const UserList = ({ searchValue, sortOrder }: UserListProps) => {
 const UserListStyle = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
   align-items: center;
 
   .content-result {
     margin-top: 48px;
     font-size: 36px;
+    text-align: center;
   }
 
   .user-items {
     display: flex;
-    gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .pagination {
-    margin-top: -20px;
-    padding-bottom: 10px;
+    margin-top: 20px;
+    padding-bottom: 20px;
   }
 
   @media (max-width: 768px) {
-    .user-items {
-      gap: 8px;
-    }
     .content-result {
       font-size: 28px;
     }

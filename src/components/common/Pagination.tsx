@@ -32,7 +32,6 @@ const PaginationStyle = styled.div`
   display: flex;
   gap: 10px;
   justify-content: center;
-  margin-top: 20px;
 
   button {
     padding: 10px;
