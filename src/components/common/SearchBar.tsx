@@ -1,24 +1,39 @@
 import styled from "styled-components";
+import { useState } from "react";
 
 interface SearchBarProps {
-  value: string;
-  onChange: (value: string) => void;
+  onSearch: (value: string) => void;
 }
 
-const SearchBar = ({ value, onChange }: SearchBarProps) => {
-  const handleSearchBar = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
+const SearchBar = ({ onSearch }: SearchBarProps) => {
+  const [inputValue, setInputValue] = useState("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleSearch = () => {
+    onSearch(inputValue);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
   };
 
   return (
     <SearchBarStyle>
       <input
         type="text"
-        value={value}
+        value={inputValue}
         placeholder="검색어를 입력하세요."
-        onChange={handleSearchBar}
+        onChange={handleInputChange}
+        onKeyPress={handleKeyPress}
       />
-      <button className="search-button">🔍</button>
+      <button className="search-button" onClick={handleSearch}>
+        🔍
+      </button>
     </SearchBarStyle>
   );
 };

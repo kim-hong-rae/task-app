@@ -10,7 +10,7 @@ const Home = () => {
   const [searchValue, setSearchValue] = useState("");
   const [sortOrder, setSortOrder] = useState<SortType>("asc");
 
-  const handleSearchChange = (value: string) => setSearchValue(value);
+  const handleSearch = (value: string) => setSearchValue(value);
 
   const handleSortChange = (value: SortType) => setSortOrder(value);
 
@@ -18,7 +18,7 @@ const Home = () => {
     <HomeStyle>
       <Header />
       <div className="filter-container">
-        <SearchBar value={searchValue} onChange={handleSearchChange} />
+        <SearchBar onSearch={handleSearch} />
         <Filter value={sortOrder} onChange={handleSortChange} />
       </div>
       <UserList searchValue={searchValue} sortOrder={sortOrder} />
