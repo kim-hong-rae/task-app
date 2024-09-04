@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import UserItem from "./UserItem";
 import Pagination from "../common/Pagination";
-import { useFetchUsers } from "../../hook/useFetchUsers";
-import { useFilterSortUsers } from "../../hook/useFilterSort";
-import { usePagination } from "../../hook/usePagination";
+import { useFetchUsers } from "../../hooks/useFetchUsers";
+import { useFilterSortUsers } from "../../hooks/useFilterSort";
+import { usePagination } from "../../hooks/usePagination";
 import { SortType } from "../../type/type";
 
 interface UserListProps {
