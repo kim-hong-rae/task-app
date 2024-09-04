@@ -34,6 +34,14 @@ const HomeStyle = styled.div`
     gap: 20px;
     margin-bottom: 20px;
   }
+
+  @media (max-width: 768px) {
+    .filter-container {
+      flex-direction: column;
+      gap: 10px;
+      align-items: stretch;
+    }
+  }
 `;
 
 export default Home;

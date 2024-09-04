@@ -1,10 +1,10 @@
-import { SortType } from "../../type/type";
+import styled from "styled-components";
 import UserItem from "./UserItem";
 import Pagination from "../common/Pagination";
-import styled from "styled-components";
 import { useFetchUsers } from "../../hook/useFetchUsers";
 import { useFilterSortUsers } from "../../hook/useFilterSort";
 import { usePagination } from "../../hook/usePagination";
+import { SortType } from "../../type/type";
 
 interface UserListProps {
   searchValue: string;
@@ -20,6 +20,7 @@ const UserList = ({ searchValue, sortOrder }: UserListProps) => {
     setCurrentPage,
     totalPages,
   } = usePagination(sortedUsers, 6);
+
   return (
     <UserListStyle>
       {loading ? (
@@ -67,9 +68,25 @@ const UserListStyle = styled.div`
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .pagination {
     margin-top: -20px;
     padding-bottom: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .user-items {
+      gap: 8px;
+    }
+    .content-result {
+      font-size: 28px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .content-result {
+      font-size: 24px;
+    }
   }
 `;
 

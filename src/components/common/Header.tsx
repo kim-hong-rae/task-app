@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Header = () => {
   return (
     <HeaderStyle>
-      <h1 className="">NewNop</h1>
+      <h1>NewNop</h1>
     </HeaderStyle>
   );
 };
@@ -16,5 +16,20 @@ const HeaderStyle = styled.div`
     color: white;
     font-size: 18px;
   }
+
+  @media (max-width: 768px) {
+    padding: 16px;
+    h1 {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px;
+    h1 {
+      font-size: 14px;
+    }
+  }
 `;
+
 export default Header;

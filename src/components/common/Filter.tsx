@@ -24,6 +24,15 @@ const Filter = ({ value, onChange }: FilterProps) => {
 const FilterStyle = styled.div`
   select {
     border: none;
+    padding: 8px;
+    font-size: 16px;
+  }
+
+  @media (max-width: 480px) {
+    select {
+      font-size: 14px;
+      padding: 6px;
+    }
   }
 `;
 

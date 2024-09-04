@@ -1,21 +1,19 @@
-import React, { useState } from "react";
-import { User } from "../../type/type";
 import styled from "styled-components";
-import UserModal from "./UserModal"; // 모달 컴포넌트 임포트
+import { useState } from "react";
+import { User } from "../../type/type";
+import UserModal from "./UserModal";
 
 interface UserItemProps {
   user: User;
 }
 
-const UserItem: React.FC<UserItemProps> = ({ user }) => {
+const UserItem = ({ user }: UserItemProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // 모달 열기
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
-  // 모달 닫기
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -64,10 +62,12 @@ const UserItemStyle = styled.div`
   &:hover {
     transform: translateY(-5px);
   }
+
   .container {
     display: flex;
     flex-direction: column;
   }
+
   .image-wrapper {
     background-color: whitesmoke;
     padding: 20px;
@@ -75,6 +75,7 @@ const UserItemStyle = styled.div`
     justify-content: center;
     align-items: center;
   }
+
   .image-container {
     width: 128px;
     height: 128px;
@@ -82,14 +83,17 @@ const UserItemStyle = styled.div`
     overflow: hidden;
     background-color: #ffffff;
   }
+
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
+
   .content-container {
     padding: 20px;
   }
+
   h2 {
     color: #333;
     font-size: 1.5rem;
@@ -97,16 +101,38 @@ const UserItemStyle = styled.div`
     border-bottom: 2px solid #f0f0f0;
     padding-bottom: 10px;
   }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    h2 {
+      font-size: 1.3rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .image-container {
+      width: 96px;
+      height: 96px;
+    }
+    h2 {
+      font-size: 1.1rem;
+    }
+  }
 `;
 
 const InfoItem = styled.p`
   margin: 10px 0;
   color: #666;
   font-size: 0.9rem;
+
   .label {
     font-weight: bold;
     color: #444;
     margin-right: 5px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
   }
 `;
 

@@ -32,7 +32,7 @@ const SearchBarStyle = styled.div`
   input {
     flex: 1;
     padding: 12px;
-    padding-right: 120px; // 아이콘 위치 조정
+    padding-right: 120px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
@@ -47,6 +47,24 @@ const SearchBarStyle = styled.div`
     font-size: 18px;
     color: #666;
     outline: none;
+  }
+
+  @media (max-width: 768px) {
+    input {
+      font-size: 14px;
+      padding-right: 100px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    input {
+      font-size: 12px;
+      padding: 8px;
+    }
+    .search-button {
+      font-size: 16px;
+      right: 8px;
+    }
   }
 `;
 
